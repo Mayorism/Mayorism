@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — PhD Candidate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue-900: #0a1628;
+    --blue-800: #0f2344;
+    --blue-700: #143266;
+    --blue-600: #1a4b8c;
+    --blue-500: #2563eb;
+    --blue-400: #4a8af5;
+    --blue-300: #7db0fc;
+    --blue-100: #dbeafe;
+    --blue-50: #eff6ff;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --accent: #f59e0b;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--gray-800);
+    background: var(--white);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--gray-200);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(10,22,40,0.08); }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.25rem; color: var(--blue-800);
+    text-decoration: none; letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--blue-500); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--gray-600);
+    font-size: 0.9rem; font-weight: 500;
+    position: relative; transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--blue-500);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--blue-800); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--gray-700); border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--blue-900) 0%, var(--blue-700) 50%, var(--blue-500) 100%);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 20%, rgba(37,99,235,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(74,138,245,0.15) 0%, transparent 50%);
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; padding: 8rem 2rem 4rem;
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 340px; gap: 4rem; align-items: center;
+  }
+  .hero-text { animation: fadeUp 0.8s ease both; }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--blue-300); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-label::before {
+    content: ''; width: 32px; height: 2px;
+    background: var(--blue-400);
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    color: var(--white); line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--blue-300);
+  }
+  .hero-desc {
+    font-size: 1.1rem; color: var(--blue-100);
+    max-width: 520px; margin-bottom: 2rem; line-height: 1.8;
+  }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-links a {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1.5rem; border-radius: 8px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    transition: all 0.25s;
+  }
+  .btn-primary {
+    background: var(--white); color: var(--blue-800);
+  }
+  .btn-primary:hover { background: var(--blue-50); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.3); color: var(--white);
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  .hero-photo {
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .photo-frame {
+    width: 300px; height: 380px;
+    border-radius: 20px; overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.15);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    position: relative;
+    background: var(--blue-600);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .photo-placeholder {
+    color: rgba(255,255,255,0.5); font-size: 0.85rem;
+    text-align: center; padding: 2rem;
+  }
+  .photo-placeholder svg { margin-bottom: 0.75rem; opacity: 0.4; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 700;
+    color: var(--blue-500); letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-label::before {
+    content: ''; width: 24px; height: 2px; background: var(--blue-500);
+  }
+  .section-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--blue-900); letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    color: var(--gray-500); font-size: 1.05rem;
+    max-width: 600px; margin-bottom: 3rem;
+  }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--gray-50); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { margin-bottom: 1rem; color: var(--gray-600); font-size: 1.02rem; }
+  .about-text p:first-of-type::first-letter {
+    font-family: var(--font-display); font-size: 3.2rem;
+    float: left; line-height: 0.8; margin-right: 0.5rem;
+    color: var(--blue-500); font-weight: 700;
+    padding-top: 6px;
+  }
+  .interests { margin-top: 2rem; }
+  .interests h3 {
+    font-size: 0.95rem; font-weight: 700; color: var(--blue-800);
+    margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    padding: 0.4rem 1rem; border-radius: 100px;
+    background: var(--blue-100); color: var(--blue-700);
+    font-size: 0.82rem; font-weight: 500;
+  }
+
+  .info-cards { display: flex; flex-direction: column; gap: 1.25rem; }
+  .info-card {
+    background: var(--white); border-radius: 14px;
+    padding: 1.5rem; border: 1px solid var(--gray-200);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .info-card .ic-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--blue-50); color: var(--blue-500);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+  .info-card h4 { font-size: 0.8rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+  .info-card p { font-weight: 600; color: var(--blue-900); font-size: 0.95rem; }
+
+  /* ─── RESEARCH ─── */
+  .pub-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .pub-item {
+    background: var(--gray-50); border-radius: 14px;
+    padding: 1.75rem 2rem; border: 1px solid var(--gray-200);
+    display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: start;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pub-item:hover { border-color: var(--blue-300); box-shadow: 0 4px 16px rgba(37,99,235,0.06); }
+  .pub-year {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.1rem; color: var(--blue-500);
+    padding-top: 2px; min-width: 50px;
+  }
+  .pub-info h3 { font-size: 1.02rem; font-weight: 600; color: var(--blue-900); margin-bottom: 0.35rem; line-height: 1.45; }
+  .pub-info .pub-authors { font-size: 0.88rem; color: var(--gray-500); margin-bottom: 0.25rem; }
+  .pub-info .pub-venue { font-size: 0.88rem; color: var(--blue-600); font-style: italic; }
+  .pub-link {
+    padding: 0.4rem 1rem; border-radius: 8px;
+    border: 1.5px solid var(--gray-200); background: var(--white);
+    text-decoration: none; font-size: 0.82rem; font-weight: 500;
+    color: var(--gray-600); white-space: nowrap;
+    transition: all 0.2s; align-self: center;
+  }
+  .pub-link:hover { border-color: var(--blue-500); color: var(--blue-500); }
+
+  /* ─── TEACHING ─── */
+  .teaching { background: var(--gray-50); }
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .course-card {
+    background: var(--white); border-radius: 14px;
+    padding: 2rem; border: 1px solid var(--gray-200);
+    position: relative; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .course-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+  .course-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: linear-gradient(90deg, var(--blue-500), var(--blue-300));
+  }
+  .course-code {
+    font-size: 0.78rem; font-weight: 700; color: var(--blue-500);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
+  }
+  .course-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--blue-900); margin-bottom: 0.5rem; }
+  .course-card p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.65; }
+  .course-semester {
+    display: inline-block; margin-top: 1rem;
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+    background: var(--blue-50); color: var(--blue-600);
+    font-size: 0.78rem; font-weight: 500;
+  }
+
+  /* ─── CV ─── */
+  .cv-section {
+    background: linear-gradient(160deg, var(--blue-900) 0%, var(--blue-700) 100%);
+    text-align: center; color: var(--white);
+  }
+  .cv-section .section-label { color: var(--blue-300); }
+  .cv-section .section-label::before { background: var(--blue-300); }
+  .cv-section .section-title { color: var(--white); }
+  .cv-section .section-subtitle { color: var(--blue-200); margin-left: auto; margin-right: auto; }
+  .cv-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 1rem 2.5rem; border-radius: 12px;
+    background: var(--white); color: var(--blue-800);
+    text-decoration: none; font-weight: 600; font-size: 1rem;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .cv-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--blue-900); color: var(--blue-200);
+    padding: 3rem 2rem; text-align: center;
+  }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .footer-links a {
+    color: var(--blue-300); text-decoration: none; font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  footer p { font-size: 0.82rem; color: var(--gray-500); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    .hero-desc { margin-left: auto; margin-right: auto; }
+    .hero-links { justify-content: center; }
+    .hero-photo { order: -1; }
+    .photo-frame { width: 220px; height: 280px; margin: 0 auto; }
+    .hero-label { justify-content: center; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .pub-year { font-size: 0.85rem; }
+    .pub-link { justify-self: start; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: var(--white); padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Your<span>Name</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#cv">CV</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-label">PhD Candidate</div>
+      <h1>Your Name<br><em>Goes Here</em></h1>
+      <p class="hero-desc">
+        PhD Candidate in [Your Department] at [Your University]. 
+        My research explores [brief 1-2 sentence description of your research focus and what drives your work].
+      </p>
+      <div class="hero-links">
+        <a href="#research" class="btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
+          View Research
+        </a>
+        <a href="mailto:your.email@university.edu" class="btn-outline">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          Get in Touch
+        </a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <!-- Replace the placeholder below with your photo: -->
+        <!-- <img src="your-photo.jpg" alt="Your Name"> -->
+        <div class="photo-placeholder">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div>Your photo here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner fade-in">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Background</h2>
+        <p>
+          Write your personal bio here. Describe your academic journey, what brought you to your current 
+          field of study, and what motivates your research. This is your chance to tell your story in your 
+          own words — make it personal and compelling.
+        </p>
+        <p>
+          Add a second paragraph about your broader interests, any interdisciplinary work, 
+          collaborations, or what you hope to achieve with your research. You can also mention 
+          any awards, fellowships, or other highlights here.
+        </p>
+        <div class="interests">
+          <h3>Research Interests</h3>
+          <div class="tags">
+            <span class="tag">Interest Area 1</span>
+            <span class="tag">Interest Area 2</span>
+            <span class="tag">Interest Area 3</span>
+            <span class="tag">Interest Area 4</span>
+            <span class="tag">Interest Area 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="ic-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 6 3 6 3s6-1 6-3v-5"/></svg>
+          </div>
+          <h4>Institution</h4>
+          <p>Your University Name</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h4>Department</h4>
+          <p>Your Department Name</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </div>
+          <h4>Email</h4>
+          <p>your.email@university.edu</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <h4>Profiles</h4>
+          <p>Google Scholar · ORCID</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-inner fade-in">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Selected Publications</h2>
+    <p class="section-subtitle">A selection of my published and working papers. See my CV or Google Scholar for a complete list.</p>
+
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-info">
+          <h3>Your Paper Title Goes Here: A Detailed Study of Something Important</h3>
+          <div class="pub-authors">Your Name, Co-Author A, Co-Author B</div>
+          <div class="pub-venue">Journal of Your Field, Vol. 12, Issue 3</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-info">
+          <h3>Another Research Paper With an Interesting and Descriptive Title</h3>
+          <div class="pub-authors">Co-Author C, Your Name</div>
+          <div class="pub-venue">Conference on Important Topics, Proceedings</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-info">
+          <h3>A Third Publication to Showcase Your Research Output and Expertise</h3>
+          <div class="pub-authors">Your Name, Co-Author D</div>
+          <div class="pub-venue">International Review of Your Discipline</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section class="teaching" id="teaching">
+  <div class="section-inner fade-in">
+    <div class="section-label">Teaching</div>
+    <h2 class="section-title">Courses</h2>
+    <p class="section-subtitle">Courses I have taught or served as a teaching assistant for.</p>
+
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-code">COURSE 101</div>
+        <h3>Introduction to Your Subject</h3>
+        <p>Brief description of the course content, learning objectives, and what students gain from it.</p>
+        <span class="course-semester">Fall 2025</span>
+      </div>
+      <div class="course-card">
+        <div class="course-code">COURSE 201</div>
+        <h3>Intermediate Topics in Your Field</h3>
+        <p>Brief description covering the intermediate-level material and any special focus areas.</p>
+        <span class="course-semester">Spring 2025</span>
+      </div>
+      <div class="course-card">
+        <div class="course-code">COURSE 301</div>
+        <h3>Advanced Seminar</h3>
+        <p>An advanced course exploring cutting-edge topics and requiring active student research participation.</p>
+        <span class="course-semester">Fall 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section class="cv-section" id="cv">
+  <div class="section-inner fade-in">
+    <div class="section-label">Curriculum Vitae</div>
+    <h2 class="section-title">Download My CV</h2>
+    <p class="section-subtitle">For a complete overview of my education, publications, presentations, and professional experience.</p>
+    <a href="#" class="cv-btn">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      Download CV (PDF)
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="mailto:your.email@university.edu">Email</a>
+    <a href="#">Google Scholar</a>
+    <a href="#">ORCID</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Twitter / X</a>
+  </div>
+  <p>&copy; 2026 Your Name. All rights reserved.</p>
+</footer>
+
+<script>
+// Navbar scroll effect
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
